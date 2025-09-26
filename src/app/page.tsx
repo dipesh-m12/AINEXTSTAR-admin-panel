@@ -241,13 +241,54 @@ const mockData = {
     }
   ]
 };
+interface Provider {
+  id: number;
+  business_name: string;
+  business_description: string;
+  provider_type: string;
+  subscription_tier: string;
+  contact_email: string;
+  contact_phone: string;
+  created_at: string;
+  branches: {
+    id: number;
+    branch_name: string;
+    branch_address: string;
+    latitude: number;
+    longitude: number;
+    service_radius: number;
+    branch_active: boolean;
+    services: {
+      id: number;
+      name: string;
+      description: string;
+      duration: number;
+      price: number;
+      cancellation_fee: number;
+      active: boolean;
+    }[];
+    staff: {
+      id: number;
+      full_name: string;
+      specialization: string;
+      active: boolean;
+    }[];
+  }[];
+  supplier_info: {
+    supplier_business_name: string;
+    supplier_address: string;
+    supplier_contact_email: string;
+    supplier_contact_phone: string;
+    supplier_active: boolean;
+  } | null;
+}
 
 
 export default function AdminPanel() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterTier, setFilterTier] = useState('all');
   const [filterType, setFilterType] = useState('all');
-  const [selectedProvider, setSelectedProvider] = useState(null);
+  const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
 
   // Calculate metrics
   const metrics = useMemo(() => {
